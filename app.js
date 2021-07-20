@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}));
 
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://dany-2021:nestor98@cluster0.dcp1i.mongodb.net/wikiDB",{useNewUrlParser : true, useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dcp1i.mongodb.net/wikiDB`,{useNewUrlParser : true, useUnifiedTopology: true })
 
 const articleSchema = {
     title: String,
