@@ -11,11 +11,12 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}));
 
 app.use(express.static("public"));
-mongoose.connect("mongodb://localhost:27017/wikiDB",{useNewUrlParser : true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://dany-2021:nestor98@cluster0.dcp1i.mongodb.net/wikiDB",{useNewUrlParser : true, useUnifiedTopology: true })
 
 const articleSchema = {
     title: String,
-    content: String
+    content: String,
+    image: String
 };
 
 const Article = new mongoose.model('Article' , articleSchema);
@@ -34,7 +35,8 @@ app.route('/articles')
 .post((req,res)=>{
     const newArticle = new Article({
         title : req.body.title,
-        content : req.body.content
+        content : req.body.content,
+        image : req.body.image
     })
     newArticle.save((err)=>{
         if(err){
@@ -56,6 +58,7 @@ app.route('/articles')
 })
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////request targetting an specific article ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 app.route('/articles/:articleTitle')
 .get((req,res)=>{
     Article.findOne({title: req.params.articleTitle},(err,foundArticle)=>{
@@ -69,7 +72,7 @@ app.route('/articles/:articleTitle')
 .put((req, res) => {
     Article.replaceOne(
       {title: req.params.articleTitle},
-      {title: req.body.title,content: req.body.content},
+      {title: req.body.title,content: req.body.content,image: req.body.image},
       (err) => {
         if (err) {
           res.send(err);
