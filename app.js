@@ -33,6 +33,16 @@ app.get("/", (req, res) => {
   res.send("workando por aca");
 });
 
+app.get("/articles", (req, res) => {
+  Article.find({}, (err, foundArticles) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(foundArticles);
+    }
+  });
+});
+
 //////////////////////////////////request targetting all articles ////////////////////////////
 app
   .route("/articles")
