@@ -1,8 +1,19 @@
 {
-  "rewrites": [
+  "version": 2,
+
+  "builds": [{ "use": "@vercel/static-build", "src": "package.json" }],
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "app.js"
+      "src": "(.*).js",
+      "dest": "/$1.js"
+    },
+    {
+      "src": "(.*).json",
+      "dest": "/$1.json"
+    },
+    {
+      "src": "/.*",
+      "dest": "app.js"
     }
   ]
 }
