@@ -36,8 +36,8 @@ app.get("/", (req, res) => {
 app.get("/articles", (req, res) => {
   Article.find({}, (err, foundArticles) => {
     if (err) {
-      console.log(err);
       console.log("entro en error");
+      console.log(err);
     } else {
       res.send(foundArticles);
     }
